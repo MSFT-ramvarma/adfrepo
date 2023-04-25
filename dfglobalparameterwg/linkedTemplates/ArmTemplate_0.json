@@ -6,6 +6,14 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "dfglobalparameterwg"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://ramdatalake.dfs.core.windows.net/"
 		}
 	},
 	"variables": {
@@ -13,17 +21,425 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Json100.json",
+						"fileSystem": "json"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"feeds": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "integer"
+									},
+									"title": {
+										"type": "string"
+									},
+									"description": {
+										"type": "string"
+									},
+									"location": {
+										"type": "string"
+									},
+									"lng": {
+										"type": "integer"
+									},
+									"lat": {
+										"type": "integer"
+									},
+									"userId": {
+										"type": "integer"
+									},
+									"name": {
+										"type": "string"
+									},
+									"isdeleted": {
+										"type": "boolean"
+									},
+									"profilePicture": {
+										"type": "string"
+									},
+									"videoUrl": {
+										"type": "null"
+									},
+									"images": {
+										"type": "null"
+									},
+									"mediatype": {
+										"type": "integer"
+									},
+									"imagePaths": {
+										"type": "null"
+									},
+									"feedsComment": {
+										"type": "null"
+									},
+									"commentCount": {
+										"type": "integer"
+									},
+									"multiMedia": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "integer"
+												},
+												"name": {
+													"type": "string"
+												},
+												"description": {
+													"type": "null"
+												},
+												"url": {
+													"type": "string"
+												},
+												"mediatype": {
+													"type": "integer"
+												},
+												"likeCount": {
+													"type": "integer"
+												},
+												"place": {
+													"type": "null"
+												},
+												"createAt": {
+													"type": "string"
+												}
+											}
+										}
+									},
+									"likeDislike": {
+										"type": "object",
+										"properties": {
+											"likes": {
+												"type": "integer"
+											},
+											"dislikes": {
+												"type": "integer"
+											},
+											"userAction": {
+												"type": "integer"
+											}
+										}
+									},
+									"createdAt": {
+										"type": "string"
+									},
+									"code": {
+										"type": "integer"
+									},
+									"msg": {
+										"type": "null"
+									}
+								}
+							}
+						},
+						"totalFeed": {
+							"type": "integer"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"TGP": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().TGP",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@rand(1,101)",
+							"type": "Expression"
+						},
+						"fileSystem": "tianyu"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"feeds": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "integer"
+									},
+									"title": {
+										"type": "string"
+									},
+									"description": {
+										"type": "string"
+									},
+									"location": {
+										"type": "string"
+									},
+									"lng": {
+										"type": "integer"
+									},
+									"lat": {
+										"type": "integer"
+									},
+									"userId": {
+										"type": "integer"
+									},
+									"name": {
+										"type": "string"
+									},
+									"isdeleted": {
+										"type": "boolean"
+									},
+									"profilePicture": {
+										"type": "string"
+									},
+									"videoUrl": {
+										"type": "null"
+									},
+									"images": {
+										"type": "null"
+									},
+									"mediatype": {
+										"type": "integer"
+									},
+									"imagePaths": {
+										"type": "null"
+									},
+									"feedsComment": {
+										"type": "null"
+									},
+									"commentCount": {
+										"type": "integer"
+									},
+									"multiMedia": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "integer"
+												},
+												"name": {
+													"type": "string"
+												},
+												"description": {
+													"type": "null"
+												},
+												"url": {
+													"type": "string"
+												},
+												"mediatype": {
+													"type": "integer"
+												},
+												"likeCount": {
+													"type": "integer"
+												},
+												"place": {
+													"type": "null"
+												},
+												"createAt": {
+													"type": "string"
+												}
+											}
+										}
+									},
+									"likeDislike": {
+										"type": "object",
+										"properties": {
+											"likes": {
+												"type": "integer"
+											},
+											"dislikes": {
+												"type": "integer"
+											},
+											"userAction": {
+												"type": "integer"
+											}
+										}
+									},
+									"createdAt": {
+										"type": "string"
+									},
+									"code": {
+										"type": "integer"
+									},
+									"msg": {
+										"type": "null"
+									}
+								}
+							}
+						},
+						"totalFeed": {
+							"type": "integer"
+						},
+						"page": {
+							"type": "integer"
+						},
+						"per_page": {
+							"type": "integer"
+						},
+						"totalrecord": {
+							"type": "integer"
+						},
+						"total_pages": {
+							"type": "integer"
+						},
+						"data": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "integer"
+									},
+									"tourist_name": {
+										"type": "string"
+									},
+									"tourist_email": {
+										"type": "string"
+									},
+									"tourist_location": {
+										"type": "string"
+									},
+									"createdat": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "Json1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Json2",
+								"type": "DatasetReference",
+								"parameters": {
+									"TGP": {
+										"value": "@pipeline().globalParameters.testgp",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
 				"policy": {
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Json1')]",
+				"[concat(variables('factoryId'), '/datasets/Json2')]"
+			]
 		}
 	]
 }
