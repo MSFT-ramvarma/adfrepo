@@ -1,0 +1,184 @@
+{
+	"name": "Json2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TGP": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().TGP",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@rand(1,101)",
+					"type": "Expression"
+				},
+				"fileSystem": "tianyu"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"feeds": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "integer"
+							},
+							"title": {
+								"type": "string"
+							},
+							"description": {
+								"type": "string"
+							},
+							"location": {
+								"type": "string"
+							},
+							"lng": {
+								"type": "integer"
+							},
+							"lat": {
+								"type": "integer"
+							},
+							"userId": {
+								"type": "integer"
+							},
+							"name": {
+								"type": "string"
+							},
+							"isdeleted": {
+								"type": "boolean"
+							},
+							"profilePicture": {
+								"type": "string"
+							},
+							"videoUrl": {
+								"type": "null"
+							},
+							"images": {
+								"type": "null"
+							},
+							"mediatype": {
+								"type": "integer"
+							},
+							"imagePaths": {
+								"type": "null"
+							},
+							"feedsComment": {
+								"type": "null"
+							},
+							"commentCount": {
+								"type": "integer"
+							},
+							"multiMedia": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "integer"
+										},
+										"name": {
+											"type": "string"
+										},
+										"description": {
+											"type": "null"
+										},
+										"url": {
+											"type": "string"
+										},
+										"mediatype": {
+											"type": "integer"
+										},
+										"likeCount": {
+											"type": "integer"
+										},
+										"place": {
+											"type": "null"
+										},
+										"createAt": {
+											"type": "string"
+										}
+									}
+								}
+							},
+							"likeDislike": {
+								"type": "object",
+								"properties": {
+									"likes": {
+										"type": "integer"
+									},
+									"dislikes": {
+										"type": "integer"
+									},
+									"userAction": {
+										"type": "integer"
+									}
+								}
+							},
+							"createdAt": {
+								"type": "string"
+							},
+							"code": {
+								"type": "integer"
+							},
+							"msg": {
+								"type": "null"
+							}
+						}
+					}
+				},
+				"totalFeed": {
+					"type": "integer"
+				},
+				"page": {
+					"type": "integer"
+				},
+				"per_page": {
+					"type": "integer"
+				},
+				"totalrecord": {
+					"type": "integer"
+				},
+				"total_pages": {
+					"type": "integer"
+				},
+				"data": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "integer"
+							},
+							"tourist_name": {
+								"type": "string"
+							},
+							"tourist_email": {
+								"type": "string"
+							},
+							"tourist_location": {
+								"type": "string"
+							},
+							"createdat": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
