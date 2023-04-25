@@ -1,5 +1,13 @@
 {
 	"name": "dfglobalparameterwg",
+	"properties": {
+		"globalParameters": {
+			"testgp": {
+				"type": "string",
+				"value": "copiedjson"
+			}
+		}
+	},
 	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",
