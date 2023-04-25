@@ -1,0 +1,9 @@
+{
+	"name": "dfglobalparameterwg",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8a0be15a-7ca2-4a62-97d1-6f44455df6df",
+		"tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+	}
+}
