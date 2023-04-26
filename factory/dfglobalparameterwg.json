@@ -5,6 +5,10 @@
 			"testgp": {
 				"type": "string",
 				"value": "copiedjson1"
+			},
+			"gp2": {
+				"type": "string",
+				"value": "testgp2"
 			}
 		}
 	},
